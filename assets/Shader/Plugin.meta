@@ -1,7 +1,7 @@
 {
   "ver": "1.0.1",
   "uuid": "9f09898e-81e8-47f8-9f1b-542dcc38e046",
-  "isSubpackage": false,
-  "subpackageName": "",
+  "isSubpackage": true,
+  "subpackageName": "ShaderPlugin",
   "subMetas": {}
 }
