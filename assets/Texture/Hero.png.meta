@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "133287c8-efe9-4aef-a698-8783dc9ab8c2",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "Hero": {
+      "ver": "1.0.4",
+      "uuid": "ab91caab-0318-4665-b7ab-c2bc053838ed",
+      "rawTextureUuid": "133287c8-efe9-4aef-a698-8783dc9ab8c2",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 87,
+      "height": 125,
+      "rawWidth": 89,
+      "rawHeight": 125,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
