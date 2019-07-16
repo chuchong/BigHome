@@ -3,16 +3,18 @@ cc.Class({
 
     properties: {
         speed: 300,
-        x_up_limit: 880,
-        x_down_limit: 80,
-        y_up_limit: 570,
-        y_down_limit: 70
+        border_width: 800,
+        border_height: 500,
     },
 
     // use this for initialization
     onLoad: function () {
         cc.director.getPhysicsManager().enabled = true;
-
+        this.winSize = cc.winSize
+        this.x_up_limit = this.winSize.width / 2 + this.border_width / 2
+        this.x_down_limit = this.winSize.width / 2 - this.border_width / 2
+        this.y_up_limit = this.winSize.height / 2 + this.border_height / 2
+        this.y_down_limit = this.winSize.height / 2 - this.border_height / 2
     },
 
     onCollisionEnter: function (other, self) {

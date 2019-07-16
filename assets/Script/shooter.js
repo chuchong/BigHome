@@ -21,13 +21,17 @@ cc.Class({
         x_up_limit: 400,
         x_down_limit: -400,
         y_up_limit: 570,
-        y_down_limit: 70
+        y_down_limit: 70,
+        renew_frequency: 10
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
+        this.life = 5
+        this.score = 0
+        this.count = 0
     },
 
     rad2deg: function (x){
@@ -43,12 +47,13 @@ cc.Class({
         this.rigidbody.angularVelocity = 0
 
         let bullet = cc.instantiate(this.bullet);
-        bullet.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0,50));
+        bullet.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0,60));
         bullet.active = true;
         let rigid = bullet.getComponent(cc.RigidBody)
         rigid.linearVelocity = cc.v2(this.bullet_speed * Math.cos(angle), this.bullet_speed * Math.sin(angle));
         this.scene.addChild(bullet);
-
+        this.count++
+        this.cycle_counter = 0
     },
 
     start () {
@@ -62,10 +67,20 @@ cc.Class({
         this.ctx.lineTo(25, -10)
         this.ctx.lineTo(0, 50)
         this.ctx.stroke()
-        console.log(this)
+    },
+
+    onBeginContact: function (contact, selfCollider, otherCollider) {
+        this.life--
+        if (this.life === 0){
+            cc.director.loadScene('FinishScene')
+        }
     },
 
     update (dt) {
+        this.score += this.count
+        if (this.cycle_counter % this.renew_frequency !== 0){
+            return
+        }
         if (this.node.x > this.x_up_limit){
             this.node.x = this.x_down_limit
         }
@@ -78,5 +93,7 @@ cc.Class({
         else if (this.node.y < this.y_down_limit){
             this.node.y = this.y_up_limit
         }
-    },
+        this.score_label = cc.find("Canvas/scoreLabel").getComponent(cc.RichText)
+        this.score_label.string = "Life: " + this.life.toString() + " Score: " + this.score.toString()
+    }
 });
