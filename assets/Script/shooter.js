@@ -53,7 +53,7 @@ cc.Class({
 
     start () {
         this.ctx = this.getComponent(cc.Graphics); 
-        let canvas = cc.find('Canvas/battle_ground');
+        let canvas = cc.find('Canvas');
         canvas.on(cc.Node.EventType.TOUCH_START, this.onTouchBegan, this);
         this.scene = cc.director.getScene();
         this.rigidbody = this.node.getComponent(cc.RigidBody);
