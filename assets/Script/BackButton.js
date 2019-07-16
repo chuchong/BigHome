@@ -34,11 +34,12 @@ cc.Class({
   // onLoad () {},
 
   start () {
-
-  },
-
-  changeScene: function () {
-    cc.director.loadScene('SelectScene')
+    var node = this.node
+    var ctx = node.getComponent(cc.Graphics)
+    console.log(node.width)
+    ctx.rect(-node.width / 2, -node.height / 2, node.width, node.height)
+    ctx.stroke()
   }
+
   // update (dt) {},
 })
