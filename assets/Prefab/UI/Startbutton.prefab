@@ -21,7 +21,7 @@
       }
     ],
     "_active": true,
-    "_level": 2,
+    "_level": 1,
     "_components": [
       {
         "__id__": 10
@@ -225,15 +225,13 @@
     "_fontSize": 60,
     "_lineHeight": 72,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "1f9bb5a5-98c3-4d80-804d-da459030450a"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "仿宋",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
     "_id": ""
@@ -244,7 +242,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "d5e2ff03-a162-4c74-83cf-588a7dad1a35"
     },
     "fileId": "9awGO3vPZAdoxqmpQToXpI",
     "sync": false
@@ -337,7 +335,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "d5e2ff03-a162-4c74-83cf-588a7dad1a35"
     },
     "fileId": "3ep1ogkK9KMpnslDibQWrB",
     "sync": false
@@ -465,7 +463,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "d5e2ff03-a162-4c74-83cf-588a7dad1a35"
     },
     "fileId": "61nvuqrMVJXIxQcYq6fDZ5",
     "sync": false

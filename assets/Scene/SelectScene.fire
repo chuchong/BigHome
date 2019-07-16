@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.6812255859375,
+      "y": 0.6812255859375,
       "z": 1
     },
     "_quat": {
@@ -1983,15 +1983,13 @@
     "_fontSize": 60,
     "_lineHeight": 72,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "1f9bb5a5-98c3-4d80-804d-da459030450a"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "仿宋",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
     "_id": "e1SgsON4JHapr+U1sQH/Qk"
