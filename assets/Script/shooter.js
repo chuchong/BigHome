@@ -28,7 +28,8 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.director.getPhysicsManager().enabled = true;
+        let manager = cc.director.getPhysicsManager()
+        manager.enabled = true
         this.life = 5
         this.score = 0
         this.count = 0

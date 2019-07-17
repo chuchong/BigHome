@@ -2,7 +2,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        speed: 300,
         border_width: 800,
         border_height: 500,
     },
@@ -27,7 +26,6 @@ cc.Class({
         this.ctx.stroke();
     },
     
-    // called every frame, uncomment this function to activate update callback
     update: function (dt) {
         if (this.node.x > this.x_up_limit){
             this.node.x = this.x_down_limit
