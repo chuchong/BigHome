@@ -18,6 +18,7 @@ export enum ShaderType {
     Dissolve,
     Fluxay,
     FluxaySuper,
+    Effect09,
 }
 
 export default class ShaderManager {
@@ -27,6 +28,7 @@ export default class ShaderManager {
             return;
         }
         if (!sprite || !sprite.spriteFrame || sprite.getState() === shader) {
+            console.log("shadermanager 2")
             return;
         }
         if (shader > ShaderType.Gray) {

@@ -3,7 +3,7 @@ import ShaderMaterial from "./ShaderMaterial";
 
 const { ccclass, property, requireComponent, executeInEditMode } = cc._decorator;
 
-const NeedUpdate = [ShaderType.Fluxay, ShaderType.FluxaySuper];
+const NeedUpdate = [ShaderType.Fluxay, ShaderType.FluxaySuper, ShaderType.Effect09];
 
 @ccclass
 @executeInEditMode

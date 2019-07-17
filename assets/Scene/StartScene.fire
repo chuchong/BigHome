@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.6812255859375,
-      "y": 0.6812255859375,
+      "x": 0.33828125,
+      "y": 0.33828125,
       "z": 1
     },
     "_quat": {
@@ -563,7 +563,7 @@
     "_fillStart": 0,
     "_fillRange": 0,
     "_isTrimmedMode": true,
-    "_state": 0,
+    "_state": 100,
     "_atlas": null,
     "_id": "1dZTkrOSdEbKW0G/7JP1M5"
   },
