@@ -24,6 +24,14 @@ cc.Class({
       default: null,
       type: cc.RichText
     },
+    canvas: {
+      default: null,
+      type: cc.Canvas
+    },
+    background: {
+      default: null,
+      type: cc.Sprite
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -31,12 +39,10 @@ cc.Class({
   // onLoad () {},
 
   start () {
-    console.log(StageInfo)
     this.stages = 0
     // TODO: 这里可能有问题,关键在如何查询动态得最高成绩
     this.titles = StageInfo.titles
     this.highestScore = StageInfo.highestScore
-    console.log(this.titles)
     for (let i = 0; i < this.titles.length; i++) {
       this.stages++
     }
@@ -64,14 +70,19 @@ cc.Class({
     this.setInfo()
   },
 
-  backScene: function () {
-    cc.director.loadScene('StartScene')
+  startGameScene: function () {
+    //cc.director.preloadScene('BattleScene')
+    let fade_time = 1.5;
+    let number = fade_time * 60;
+    let dt = 1000.0 / 60.0;
+    for (let i = 0; i < number; i++){
+      setTimeout(()=>{
+        this.canvas.node.opacity = Math.floor((1 - i / number) * 255);
+      },i * dt)
+    }
   },
 
-  startGameScene: function () {
-    cc.director.loadScene('BattleScene')
-  }
 
-
-  // update (dt) {},
+  // update (dt) {
+  // },
 })

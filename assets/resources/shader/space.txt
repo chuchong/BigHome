@@ -8,22 +8,25 @@
 #define volsteps 20
 #define stepsize 0.1
 
-#define zoom   0.800
+//#define zoom   0.800
 #define tile   0.850
 #define speed  0.001
 
 #define brightness 0.0010
 #define darkmatter 0.300
-#define distfading 0.830
+//#define distfading 0.830
 #define saturation 0.850
 
+uniform float zoom;
+uniform float distfading;
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord)
 {
 	//get coords and direction
 	vec2 uv=fragCoord.xy/iResolution.xy-.5;
 	uv.y*=iResolution.y/iResolution.x;
-	vec3 dir=vec3(uv*iResolution.z,1.);
+	vec3 dir=vec3(uv*zoom,1.);
 	float time=iTime*speed+.25;
 
 	//mouse rotation

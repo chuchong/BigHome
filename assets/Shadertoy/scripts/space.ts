@@ -24,6 +24,13 @@ export default class Test extends cc.Component {
 
     _start = 0;
     rand = 0;
+    zoom = false;
+    zoom_scale = 0.80;
+    distfading = 0.73;
+    distfading_max = 1.2;
+    zoom_start_time = null;
+    // 这个时间需要和场景变暗的时间相同
+    zoom_dure_time = 1.5;
 
     start() {
         //this.sprite = cc.find("background")
@@ -49,6 +56,8 @@ export default class Test extends cc.Component {
                 [
                     { name: 'iResolution', type: renderer.PARAM_FLOAT3 },
                     { name: 'iTime', type: renderer.PARAM_FLOAT },
+                    { name: 'zoom', type: renderer.PARAM_FLOAT},
+                    { name: 'distfading', type: renderer.PARAM_FLOAT}
                 ],
                 [
                     { name: 'use2DPos', value: 'true' },
@@ -61,13 +70,21 @@ export default class Test extends cc.Component {
             //     10
             // );
             let iResolution = new cc.Vec3(
-                self.sprite.node.width,
-                self.sprite.node.height,
-                0.85
+                self.sprite.node.width / 2,
+                self.sprite.node.height / 2,
+                10
             );
             shader_assembler.activateCustomMaterial(self.sprite, mat)
             mat.setParamValue("iResolution", iResolution);
+            mat.setParamValue("zoom", self.zoom_scale);
+            mat.setParamValue("distfading", self.distfading);
         });
+        console.log(this.sprite.node.width, this.sprite.node.height)
+    }
+
+    startZoom() {
+        this.zoom = true;
+        this.zoom_start_time = Date.now();
     }
 
     update() {
@@ -78,11 +95,11 @@ export default class Test extends cc.Component {
         const now = Date.now();
         const time = (now - this._start) / 1000 + this.rand;
         mat.setParamValue("iTime", time);
-        // let iResolution = new cc.Vec3(
-        //     this.sprite.node.width,
-        //     this.sprite.node.height,
-        //     1 + Math.sin(time)
-        // );
-        // mat.setParamValue("iResolution", iResolution)
+        let zoom_param = 2000 * this.zoom_dure_time / Math.PI;
+        if (this.zoom){
+            mat.setParamValue("zoom", this.zoom_scale * (Math.cos((now - this.zoom_start_time) / zoom_param)))
+            mat.setParamValue("distfading", this.distfading + (this.distfading_max - this.distfading) * (Math.sin((now - this.zoom_start_time) / zoom_param)))
+        }
+
     }
 }
