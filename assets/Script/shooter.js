@@ -46,7 +46,7 @@ cc.Class({
 
   onBeginContact: function (contact, selfCollider, otherCollider) {
     if (this.state === 0) {
-      this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
+      // this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
       this.life--
       if (this.life > 0) {
         this.changeToInvincibleState()

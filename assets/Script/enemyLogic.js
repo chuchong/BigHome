@@ -36,7 +36,7 @@ cc.Class({
   },
   // LIFE-CYCLE CALLBACKS:
   shootTowardsHero () {
-    if (this.shooter.life > 0) {
+    if (this.shooter !== null && this.shooter.life > 0) {
       console.log(this.hero)
       let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
       let hero = this.hero.convertToWorldSpaceAR(new cc.Vec2(0, 0))
