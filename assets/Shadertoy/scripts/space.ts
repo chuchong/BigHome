@@ -58,7 +58,7 @@ export default class Test extends cc.Component {
             //     self.sprite.spriteFrame.getTexture().height,
             //     10
             // );
-            var iResolution = new cc.Vec3(
+            let iResolution = new cc.Vec3(
                 self.sprite.node.width,
                 self.sprite.node.height,
                 10
@@ -76,5 +76,11 @@ export default class Test extends cc.Component {
         const now = Date.now();
         const time = (now - this._start) / 1000;
         mat.setParamValue("iTime", time);
+        let iResolution = new cc.Vec3(
+            this.sprite.node.width,
+            this.sprite.node.height,
+            1 + Math.sin(time)
+        );
+        mat.setParamValue("iResolution", iResolution)
     }
 }
