@@ -26,11 +26,7 @@ cc.Class({
 
   properties: {
     shooter: cc.Node,
-    scoreLabel: cc.RichText,
-    life: {
-      default: 4,
-      type: cc.Integer
-    }
+    scoreLabel: cc.RichText
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -52,23 +48,10 @@ cc.Class({
 
   onLoad () {
     // cc.director.getPhysicsManager().enabled = true
-    this.shooter.on('shooter_attacked', throttle(function (event) {
-      console.log(this)
-      this.life--
-      this.update()
-      event.stopPropagation()
-    }), this)
   },
 
   start () {
-    this.life = 5
-    this.scoreLabel.string = this.life.toString()
-    this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
-  },
-
-  copeShooterContact: function () {
-    this.life--
-    this.update()
+    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
   },
 
   changeToNextScene: function () {
@@ -76,9 +59,9 @@ cc.Class({
   },
 
   update (dt) {
-    if (this.life <= 0) {
+    if (this.shooter.getComponent('shooter').life <= 0) {
       this.changeToNextScene()
     }
-    this.scoreLabel.string = '剩余生命' + this.life.toString()
+    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
   }
 })

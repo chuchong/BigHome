@@ -23,7 +23,8 @@ cc.Class({
     x_down_limit: -400,
     y_up_limit: 570,
     y_down_limit: 70,
-    renew_frequency: 10
+    renew_frequency: 10,
+    life: 5
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -31,7 +32,7 @@ cc.Class({
   onLoad () {
     let manager = cc.director.getPhysicsManager()
     manager.enabled = true
-    // this.life = 5
+    this.state = 0// state 0 代表一般,state 不为0代表无敌状态
     // this.score = 0
     // this.count = 0
   },
@@ -67,7 +68,24 @@ cc.Class({
   },
 
   onBeginContact: function (contact, selfCollider, otherCollider) {
-    this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
+    if (this.state === 0) {
+      this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
+      this.life--
+      if (this.life > 0) { this.changeToInvincibleState() }
+    }
+  },
+
+  // 改变状态为无敌模式
+  changeToInvincibleState () {
+    this.state = 1
+    this.node.opacity = 100
+    setTimeout(() => {
+      if (this) {
+        console.log(this)
+        this.state = 0
+        this.node.opacity = 255
+      }
+    }, 500)
   },
 
   update (dt) {
