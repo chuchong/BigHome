@@ -48,7 +48,14 @@ cc.Class({
     if (this.state === 0) {
       this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
       this.life--
-      if (this.life > 0) { this.changeToInvincibleState() }
+      if (this.life > 0) {
+        this.changeToInvincibleState()
+      } else {
+        this.node.opacity = 0
+        this.node.getComponent(cc.RigidBody).enabled = false
+        this.node.getComponent(cc.PhysicsPolygonCollider).enabled = false
+        this.node.getComponent(cc.PolygonCollider).enabled = false
+      }
     }
   },
 
