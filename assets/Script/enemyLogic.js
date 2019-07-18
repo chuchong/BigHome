@@ -13,7 +13,8 @@ cc.Class({
 
   properties: {
     timeInterval: 1000,
-    hero: cc.Node
+    hero: cc.Node,
+    speed: 500
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -36,8 +37,10 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
   shootTowardsHero () {
     if (this.shooter.life > 0) {
+      console.log(this.hero)
       let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
-      let angle = Math.atan2(this.hero.y - self.y, this.hero.x - self.x)
+      let hero = this.hero.convertToWorldSpaceAR(new cc.Vec2(0, 0))
+      let angle = Math.atan2(hero.y - self.y, hero.x - self.x)
 
       this.node.rotation = this.rad2deg(Math.PI / 2 - angle)
       this.rigidbody.linearVelocity = cc.v2(-this.speed * Math.cos(angle), -this.speed * Math.sin(angle))
