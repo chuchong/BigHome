@@ -42,7 +42,7 @@ void main () {
     #endif
 
     uv0 = a_uv0;
-    gl_Position = pos;
+    gl_Position = pos ;
 }
 `;
 

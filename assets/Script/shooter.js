@@ -49,6 +49,7 @@ cc.Class({
 
         let bullet = cc.instantiate(this.bullet);
         bullet.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0,60));
+        bullet.rotation = this.rad2deg(- angle) -45
         bullet.active = true;
         let rigid = bullet.getComponent(cc.RigidBody)
         rigid.linearVelocity = cc.v2(this.bullet_speed * Math.cos(angle), this.bullet_speed * Math.sin(angle));
@@ -58,16 +59,10 @@ cc.Class({
     },
 
     start () {
-        this.ctx = this.getComponent(cc.Graphics); 
         let canvas = cc.find('Canvas');
         canvas.on(cc.Node.EventType.TOUCH_START, this.onTouchBegan, this);
         this.scene = cc.director.getScene();
         this.rigidbody = this.node.getComponent(cc.RigidBody);
-        this.ctx.moveTo(0,50)
-        this.ctx.lineTo(-25, -10)
-        this.ctx.lineTo(25, -10)
-        this.ctx.lineTo(0, 50)
-        this.ctx.stroke()
     },
 
     onBeginContact: function (contact, selfCollider, otherCollider) {

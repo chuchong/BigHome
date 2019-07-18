@@ -25,14 +25,13 @@ export default class Test extends cc.Component {
     _start = 0;
 
     start() {
+        //this.sprite = cc.find("background")
+        //cc.game.addPersistRootNode(this.node);
         this._start = Date.now();
-        var name = 'cloud2d';
+        var name = 'space';
 
         var self = this;
         cc.loader.loadRes('shader/' + name, function (err, data) {
-            // console.log(data.text);
-            // console.log(default_vert);
-            // console.log(default_frag_prefix + data.text + default_frag_postfix);
             let shader_assembler = self.sprite.node.getComponent(ShaderAssembler);
             shader_assembler.registerFragShaderTemplate(
                 name,
@@ -64,7 +63,6 @@ export default class Test extends cc.Component {
                 self.sprite.node.height,
                 10
             );
-            console.log(iResolution);
             shader_assembler.activateCustomMaterial(self.sprite, mat)
             mat.setParamValue("iResolution", iResolution);
         });
