@@ -23,11 +23,13 @@ export default class Test extends cc.Component {
     sprite: cc.Sprite = null;
 
     _start = 0;
+    rand = 0;
 
     start() {
         //this.sprite = cc.find("background")
         //cc.game.addPersistRootNode(this.node);
         this._start = Date.now();
+        this.rand = Math.random() * 1000;
         var name = 'space';
 
         var self = this;
@@ -61,7 +63,7 @@ export default class Test extends cc.Component {
             let iResolution = new cc.Vec3(
                 self.sprite.node.width,
                 self.sprite.node.height,
-                10
+                0.85
             );
             shader_assembler.activateCustomMaterial(self.sprite, mat)
             mat.setParamValue("iResolution", iResolution);
@@ -74,13 +76,13 @@ export default class Test extends cc.Component {
             return;
         }
         const now = Date.now();
-        const time = (now - this._start) / 1000;
+        const time = (now - this._start) / 1000 + this.rand;
         mat.setParamValue("iTime", time);
-        let iResolution = new cc.Vec3(
-            this.sprite.node.width,
-            this.sprite.node.height,
-            1 + Math.sin(time)
-        );
-        mat.setParamValue("iResolution", iResolution)
+        // let iResolution = new cc.Vec3(
+        //     this.sprite.node.width,
+        //     this.sprite.node.height,
+        //     1 + Math.sin(time)
+        // );
+        // mat.setParamValue("iResolution", iResolution)
     }
 }
