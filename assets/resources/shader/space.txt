@@ -2,17 +2,17 @@
 
 // This content is under the MIT License.
 
-#define iterations 17
-#define formuparam 0.53
+#define iterations 10
+#define formuparam 0.73
 
-#define volsteps 20
-#define stepsize 0.1
+#define volsteps 5
+#define stepsize 0.3
 
 //#define zoom   0.800
 #define tile   0.850
-#define speed  0.001
+#define speed  0.02
 
-#define brightness 0.0010
+#define brightness 0.0030
 #define darkmatter 0.300
 //#define distfading 0.830
 #define saturation 0.850
@@ -29,17 +29,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord)
 	vec3 dir=vec3(uv*zoom,1.);
 	float time=iTime*speed+.25;
 
-	//mouse rotation
-	float a1=.5+iMouse.x/iResolution.x*2.;
-	float a2=.8+iMouse.y/iResolution.y*2.;
-	mat2 rot1=mat2(cos(a1),sin(a1),-sin(a1),cos(a1));
-	mat2 rot2=mat2(cos(a2),sin(a2),-sin(a2),cos(a2));
-	dir.xz*=rot1;
-	dir.xy*=rot2;
 	vec3 from=vec3(1.,.5,0.5);
 	from+=vec3(time*2.,time,-2.);
-	from.xz*=rot1;
-	from.xy*=rot2;
 	
 	//volumetric rendering
 	float s=0.1,fade=1.;
@@ -48,14 +39,17 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord)
 		vec3 p=from+s*dir*.5;
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		float pa,a=pa=0.;
+		float p2, lp;
 		for (int i=0; i<iterations; i++) { 
-			p=abs(p)/dot(p,p)-formuparam; // the magic formula
-			a+=abs(length(p)-pa); // absolute sum of average change
-			pa=length(p);
+			p2 = dot(p,p);
+			lp = sqrt(p2);
+			p=abs(p)/p2-formuparam; // the magic formula
+			a+=abs(lp-pa); // absolute sum of average change
+			pa=lp;
 		}
 		float dm=max(0.,darkmatter-a*a*.001); //dark matter
 		a*=a*a; // add contrast
-		if (r>6) fade*=1.-dm; // dark matter, don't render near
+		//if (r>6) fade*=1.-dm; // dark matter, don't render near
 		//v+=vec3(dm,dm*.5,0.);
 		v+=fade;
 		v+=vec3(s,s*s,s*s*s*s)*a*brightness*fade; // coloring based on distance

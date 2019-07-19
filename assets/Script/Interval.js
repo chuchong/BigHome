@@ -32,13 +32,19 @@ cc.Class({
 
   define (){
     this.pre_load_time = 0.5; // second before first character
-    this.ch_speed = 0.08; // second pre character
+    this.ch_speed = 0.10; // second pre character
     this.speaker_dure = 1.5 // time spent for speaker
     this.distance_mean = 60 // pixels
     this.float_size_mean = 100 // pixels
-    this.float_per_char = 3
+    this.float_per_char = 1
     this.after_load_time = 1.0 // wait after chars turn out
     this.char_set = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '!', '@', '#', '%', '=']
+  },
+
+  _wrap(fn, ...args){
+    return function(){
+      return fn(...args);
+    }
   },
 
   start () {
@@ -62,8 +68,8 @@ cc.Class({
     this.Speaker.node.opacity = 0
     this.Description.string = ""
 
-    setTimeout(this.showDescription, this.pre_load_time * 1000, this)
-    setTimeout(this.showSpeaker, (this.pre_load_time + this.text.length * this.ch_speed) * 1000, this)
+    setTimeout(this._wrap(this.showDescription, this), this.pre_load_time * 1000)
+    setTimeout(this._wrap(this.showSpeaker, this), (this.pre_load_time + this.text.length * this.ch_speed) * 1000)
   },
 
   charPose (index) {
@@ -83,7 +89,7 @@ cc.Class({
   showDescription (self) {
     let len = self.text.length;
     for (let i = 0; i < len; i++){
-      setTimeout(self.showSubstring, i * self.ch_speed * 1000, i, self)
+      setTimeout(self._wrap(self.showSubstring, i, self), i * self.ch_speed * 1000)
     }
   },
 
@@ -92,14 +98,17 @@ cc.Class({
     self.Description.string = text
     let pose = self.charPose(i)
     for (let i = 0; i < self.float_per_char; i++){
-      setTimeout((self)=>{
+      setTimeout(self._wrap((self)=>{
           let dir = Math.random() * Math.PI
           let dis = Math.random() * self.distance_mean * 2
           self.Floating.node.x = pose.x + dis * Math.cos(dir)
           self.Floating.node.y = pose.y + dis * Math.sin(dir)
           self.Floating.fontSize = Math.random() * self.float_size_mean * 2
           self.Floating.string = self.colorString("black", self.char_set[Math.floor(self.char_set.length * Math.random())])
-      }, i * self.ch_speed / self.float_per_char, self)
+          setTimeout(self._wrap(()=>{
+            self.Floating.string = ""
+          }, self), self.ch_speed)
+      }, self), i * self.ch_speed / self.float_per_char)
     }
   },
 

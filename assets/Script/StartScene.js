@@ -39,6 +39,7 @@ cc.Class({
   // onLoad () {},
 
   start () {
+    cc.game.setFrameRate(24);
     this.stages = 0
     // TODO: 这里可能有问题,关键在如何查询动态得最高成绩
     this.titles = StageInfo.titles
