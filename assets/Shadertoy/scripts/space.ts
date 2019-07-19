@@ -27,7 +27,7 @@ export default class Test extends cc.Component {
     zoom = false;
     zoom_scale = 0.80;
     distfading = 0.73;
-    distfading_max = 1.2;
+    distfading_max = 1.10;
     zoom_start_time = null;
     // 这个时间需要和场景变暗的时间相同
     zoom_dure_time = 1.5;

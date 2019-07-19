@@ -72,6 +72,7 @@ cc.Class({
 
   startGameScene: function () {
     //cc.director.preloadScene('BattleScene')
+    StageInfo.currentStage = this.id;
     let fade_time = 1.5;
     let number = fade_time * 60;
     let dt = 1000.0 / 60.0;
@@ -80,6 +81,9 @@ cc.Class({
         this.canvas.node.opacity = Math.floor((1 - i / number) * 255);
       },i * dt)
     }
+    setTimeout(()=>{
+      cc.director.loadScene('Interval')
+    }, 1000 * fade_time)
   },
 
 
