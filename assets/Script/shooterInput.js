@@ -8,25 +8,11 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-// 节流
-function throttle (fn, time = 500) {
-  let timer
-  return function (...args) {
-    if (timer == null) {
-      fn.apply(this, args)
-      timer = setTimeout(() => {
-        timer = null
-      }, time)
-    }
-  }
-}
-
 cc.Class({
   extends: cc.Component,
 
   properties: {
-    shooter: cc.Node,
-    scoreLabel: cc.RichText
+    speed: 1000
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -46,22 +32,27 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
-    cc.director.getPhysicsManager().enabled = true
-  },
+  // onLoad () {},
 
   start () {
-    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
+    this.rigidbody = this.node.getComponent(cc.RigidBody)
+    let canvas = cc.find('Canvas')
+    canvas.on(cc.Node.EventType.TOUCH_START, this.onTouchBegan, this)
   },
 
-  changeToNextScene: function () {
-    cc.director.loadScene('StartScene')
+  rad2deg: function (x) {
+    return x * 180 / Math.PI
   },
 
-  update (dt) {
-    if (this.shooter.getComponent('shooter').life <= 0) {
-      this.changeToNextScene()
-    }
-    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
+  onTouchBegan: function (event) {
+    let touchLoc = event.touch.getLocation()
+    let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
+    let angle = Math.atan2(touchLoc.y - self.y, touchLoc.x - self.x)
+    this.node.rotation = this.rad2deg(Math.PI / 2 - angle)
+    this.rigidbody.linearVelocity = cc.v2(-this.speed * Math.cos(angle), -this.speed * Math.sin(angle))
+    this.rigidbody.angularVelocity = 0
+    this.node.getComponent('shooter').shoot(angle)
   }
+
+  // update (dt) {},
 })

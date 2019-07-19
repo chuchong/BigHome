@@ -13,7 +13,6 @@ cc.Class({
 
   properties: {
     director: cc.Node,
-    speed: 1000,
     bullet_speed: 300,
     bullet: {
       default: null,
@@ -23,15 +22,16 @@ cc.Class({
     x_down_limit: -400,
     y_up_limit: 570,
     y_down_limit: 70,
-    renew_frequency: 10
+    renew_frequency: 10,
+    life: 5
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    let manager = cc.director.getPhysicsManager()
-    manager.enabled = true
-    // this.life = 5
+    // let manager = cc.director.getPhysicsManager()
+    // manager.enabled = true
+    this.state = 0// state 0 代表一般,state 不为0代表无敌状态
     // this.score = 0
     // this.count = 0
   },
@@ -40,14 +40,39 @@ cc.Class({
     return x * 180 / Math.PI
   },
 
-  onTouchBegan: function (event) {
-    let touchLoc = event.touch.getLocation()
-    let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
-    let angle = Math.atan2(touchLoc.y - self.y, touchLoc.x - self.x)
-    this.node.rotation = this.rad2deg(Math.PI / 2 - angle)
-    this.rigidbody.linearVelocity = cc.v2(-this.speed * Math.cos(angle), -this.speed * Math.sin(angle))
-    this.rigidbody.angularVelocity = 0
+  start () {
+    this.scene = cc.director.getScene()
+  },
 
+  onBeginContact: function (contact, selfCollider, otherCollider) {
+    if (this.state === 0) {
+      // this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
+      this.life--
+      if (this.life > 0) {
+        this.changeToInvincibleState()
+      } else {
+        this.node.opacity = 0
+        this.node.getComponent(cc.RigidBody).enabled = false
+        this.node.getComponent(cc.PhysicsPolygonCollider).enabled = false
+        this.node.getComponent(cc.PolygonCollider).enabled = false
+      }
+    }
+  },
+
+  // 改变状态为无敌模式
+  changeToInvincibleState () {
+    this.state = 1
+    this.node.opacity = 100
+    setTimeout(() => {
+      if (this) {
+        console.log(this)
+        this.state = 0
+        this.node.opacity = 255
+      }
+    }, 500)
+  },
+
+  shoot (angle) {
     let bullet = cc.instantiate(this.bullet)
     bullet.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 60))
     bullet.rotation = this.rad2deg(-angle) - 45
@@ -55,26 +80,13 @@ cc.Class({
     let rigid = bullet.getComponent(cc.RigidBody)
     rigid.linearVelocity = cc.v2(this.bullet_speed * Math.cos(angle), this.bullet_speed * Math.sin(angle))
     this.scene.addChild(bullet)
-    this.count++
-    this.cycle_counter = 0
-  },
-
-  start () {
-    let canvas = cc.find('Canvas')
-    canvas.on(cc.Node.EventType.TOUCH_START, this.onTouchBegan, this)
-    this.scene = cc.director.getScene()
-    this.rigidbody = this.node.getComponent(cc.RigidBody)
-  },
-
-  onBeginContact: function (contact, selfCollider, otherCollider) {
-    this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
   },
 
   update (dt) {
-    this.score += this.count
-    if (this.cycle_counter % this.renew_frequency !== 0) {
-      return
-    }
+    // this.score += this.count
+    // if (this.cycle_counter % this.renew_frequency !== 0) {
+    //   return
+    // }
     if (this.node.x > this.x_up_limit) {
       this.node.x = this.x_down_limit
     } else if (this.node.x < this.x_down_limit) {

@@ -8,25 +8,13 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-// 节流
-function throttle (fn, time = 500) {
-  let timer
-  return function (...args) {
-    if (timer == null) {
-      fn.apply(this, args)
-      timer = setTimeout(() => {
-        timer = null
-      }, time)
-    }
-  }
-}
-
 cc.Class({
   extends: cc.Component,
 
   properties: {
-    shooter: cc.Node,
-    scoreLabel: cc.RichText
+    timeInterval: 1000,
+    hero: cc.Node,
+    speed: 500
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -43,25 +31,33 @@ cc.Class({
     //     }
     // },
   },
-
-  // LIFE-CYCLE CALLBACKS:
-
-  onLoad () {
-    cc.director.getPhysicsManager().enabled = true
+  rad2deg: function (x) {
+    return x * 180 / Math.PI
   },
+  // LIFE-CYCLE CALLBACKS:
+  shootTowardsHero () {
+    if (this.shooter !== null && this.shooter.life > 0) {
+      console.log(this.hero)
+      let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
+      let hero = this.hero.convertToWorldSpaceAR(new cc.Vec2(0, 0))
+      let angle = Math.atan2(hero.y - self.y, hero.x - self.x)
+
+      this.node.rotation = this.rad2deg(Math.PI / 2 - angle)
+      this.rigidbody.linearVelocity = cc.v2(-this.speed * Math.cos(angle), -this.speed * Math.sin(angle))
+      this.rigidbody.angularVelocity = 0
+
+      this.node.getComponent('shooter').shoot(angle)
+      setTimeout(() => this.shootTowardsHero(), this.timeInterval)
+    }
+  },
+
+  // onLoad () {},
 
   start () {
-    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
-  },
-
-  changeToNextScene: function () {
-    cc.director.loadScene('StartScene')
-  },
-
-  update (dt) {
-    if (this.shooter.getComponent('shooter').life <= 0) {
-      this.changeToNextScene()
-    }
-    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
+    this.shooter = this.node.getComponent('shooter')
+    this.rigidbody = this.node.getComponent(cc.RigidBody)
+    setTimeout(() => this.shootTowardsHero(), this.timeInterval)
   }
+
+  // update (dt) {},
 })
