@@ -642,7 +642,7 @@
     "_skewX": 0,
     "_skewY": 0,
     "groupIndex": 0,
-    "_id": "671jNq+sFP3q0iDuWP5T6M"
+    "_id": "68DkviEFJMZJtoBd3AI97G"
   },
   {
     "__type__": "cc.Label",
@@ -667,7 +667,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "7fvOTZ8r1EeJUprv+CEXdW"
+    "_id": "fdU3eI811D4qthTgkQ4a0D"
   },
   {
     "__type__": "cc.PrivateNode",
@@ -727,7 +727,7 @@
     "_skewX": 0,
     "_skewY": 0,
     "groupIndex": 0,
-    "_id": "68a6gPNApKzam95oI5RH6+"
+    "_id": "b7IcfM6XBCsKujqOtqi5L/"
   },
   {
     "__type__": "cc.Label",
@@ -752,7 +752,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "14ZskJklBMsaK/ICoftu0A"
+    "_id": "a0oKONEbpHuYMJrbkg2CjD"
   },
   {
     "__type__": "cc.RichText",
@@ -2496,6 +2496,10 @@
     "enemyFactory": {
       "__id__": 48
     },
+    "x_up_limit": 400,
+    "x_down_limit": -400,
+    "y_up_limit": 250,
+    "y_down_limit": -250,
     "_id": "85ObFkzdBK5Jw+U+9piwjN"
   },
   {

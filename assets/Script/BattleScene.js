@@ -22,6 +22,11 @@ function throttle (fn, time = 500) {
   }
 }
 
+function randomRangeInt (n, m) {
+  var c = m - n + 1
+  return Math.floor(Math.random() * c + n)
+}
+
 cc.Class({
   extends: cc.Component,
 
@@ -29,7 +34,11 @@ cc.Class({
     shooter: cc.Node,
     scoreLabel: cc.RichText,
     score: 0,
-    enemyFactory: Factory
+    enemyFactory: Factory,
+    x_up_limit: 400,
+    x_down_limit: -400,
+    y_up_limit: 250,
+    y_down_limit: -250// 中心战斗部分大小
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -69,9 +78,13 @@ cc.Class({
     //   this.changeToNextScene()
     // }
     if (this.shooter != null) { this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString() }
-    if (this.frame % 600 === 0) {
+    if (this.frame % 600 === 10) {
       console.log('suitable frame')
-      this.enemyFactory.generateEnemy()
+
+      let x = randomRangeInt(this.x_down_limit, this.x_up_limit)
+      let y = randomRangeInt(this.y_down_limit, this.y_up_limit)
+      console.log('%d %d', x, y)
+      this.enemyFactory.generateEnemy(x, y)
     }
   },
 

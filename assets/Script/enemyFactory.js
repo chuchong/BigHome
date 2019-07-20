@@ -46,13 +46,13 @@ cc.Class({
     this.enemyList = []
   },
 
-  generateEnemy () {
+  generateEnemy (x, y) {
     console.log(this.enemyNum)
     if (this.enemyNum === 0) {
       let enemy = cc.instantiate(this.enemy)
 
-      enemy.x = 200
-      enemy.y = 360
+      enemy.x = x
+      enemy.y = y
       enemy.active = true
       this.Canvas.addChild(enemy)
       enemy.getComponent('shooter').changeToInvincibleState(1000) // 添加了会出bug
