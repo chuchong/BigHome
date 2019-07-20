@@ -22,7 +22,7 @@ cc.Class({
         console.log("initaction")
         this._isShow = false;
         let size = cc.winSize;
-        this._showAction = cc.moveTo(0.5, this.wxSubContextView.x, Math.floor(100));
+        this._showAction = cc.moveTo(0.5, this.wxSubContextView.x, 0);
         this._hideAction = cc.moveTo(0.5, this.wxSubContextView.x, Math.floor(size.height));
 
         this.wxSubContextView.runAction(this._hideAction);
@@ -61,19 +61,6 @@ cc.Class({
             if (!userInfo) {
                 return;
             }
-
-            cc.loader.load({url: userInfo.avatarUrl, type: 'png'}, (err, texture) => {
-                console.log("image_loaded")
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                this.avatar.spriteFrame = new cc.SpriteFrame(texture);
-            });
-
-            wx.getOpenDataContext().postMessage({
-                message: "User info get success."
-            });
 
             this.onClick()
 

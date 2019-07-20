@@ -31,6 +31,7 @@ export default class Test extends cc.Component {
     zoom_start_time = null;
     // 这个时间需要和场景变暗的时间相同
     zoom_dure_time = 1.5;
+    mat = null;
 
     start() {
         //this.sprite = cc.find("background")
@@ -88,17 +89,19 @@ export default class Test extends cc.Component {
     }
 
     update() {
-        const mat = this.sprite.node.getComponent(ShaderAssembler).currentMaterial;
-        if (!mat) {
-            return;
+        if (!this.mat) {
+            this.mat = this.sprite.node.getComponent(ShaderAssembler).currentMaterial;
+            if (!this.mat){
+                return;
+            }
         }
         const now = Date.now();
         const time = (now - this._start) / 1000 + this.rand;
-        mat.setParamValue("iTime", time);
+        this.mat.setParamValue("iTime", time);
         let zoom_param = 2000 * this.zoom_dure_time / Math.PI;
         if (this.zoom){
-            mat.setParamValue("zoom", this.zoom_scale * (Math.cos((now - this.zoom_start_time) / zoom_param)))
-            mat.setParamValue("distfading", this.distfading + (this.distfading_max - this.distfading) * (Math.sin((now - this.zoom_start_time) / zoom_param)))
+            this.mat.setParamValue("zoom", this.zoom_scale * (Math.cos((now - this.zoom_start_time) / zoom_param)))
+            this.mat.setParamValue("distfading", this.distfading + (this.distfading_max - this.distfading) * (Math.sin((now - this.zoom_start_time) / zoom_param)))
         }
 
     }
