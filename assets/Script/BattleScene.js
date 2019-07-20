@@ -73,11 +73,13 @@ cc.Class({
   },
 
   update (dt) {
+    this.addScore()
     this.frame++
     // if (this.shooter.getComponent('shooter').life <= 0) {
     //   this.changeToNextScene()
     // }
-    if (this.shooter != null) { this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString() }
+    if (this.shooter != null) { this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString() + '  ' + '分数' + this.score.toString() }
+
     if (this.frame % 600 === 10) {
       console.log('suitable frame')
 

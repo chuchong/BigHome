@@ -36,7 +36,7 @@ cc.Class({
   },
   // LIFE-CYCLE CALLBACKS:
   shootTowardsHero () {
-    if (this.shooter !== null && this.shooter.life > 0) {
+    if (this.shooter !== null && this.node !== null && this.shooter.life > 0) {
       let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
       let hero = this.hero.convertToWorldSpaceAR(new cc.Vec2(0, 0))
       let angle = Math.atan2(hero.y - self.y, hero.x - self.x)

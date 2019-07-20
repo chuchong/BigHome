@@ -32,7 +32,7 @@ cc.Class({
   onLoad () {
     // let manager = cc.director.getPhysicsManager()
     // manager.enabled = true
-    this.state = 0// state 0 代表一般,state 不为0代表无敌状态
+    this.state = 0// state 0 代表一般,state 1代表无敌状态, -1代表死亡
     // this.score = 0
     // this.count = 0
   },
@@ -51,7 +51,7 @@ cc.Class({
       if (this.life > 0) {
         this.changeToInvincibleState(500)
       } else if (this.life === 0) {
-        this.life--
+        this.state = -1
         this.node.opacity = 0
         this.node.getComponent(cc.RigidBody).enabled = false
         this.node.getComponent(cc.PhysicsPolygonCollider).enabled = false
@@ -68,7 +68,7 @@ cc.Class({
     this.state = 1
     this.node.opacity = 100
     setTimeout(() => {
-      if (this !== null) {
+      if (this.node !== null) {
         this.state = 0
         this.node.opacity = 255
       }
