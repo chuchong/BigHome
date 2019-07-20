@@ -50,11 +50,12 @@ cc.Class({
     console.log(this.enemyNum)
     if (this.enemyNum === 0) {
       let enemy = cc.instantiate(this.enemy)
-      //   enemy.getComponent('shooter').changeToInvincibleState(1000) 添加了会出bug
+
       enemy.x = 200
       enemy.y = 360
       enemy.active = true
       this.Canvas.addChild(enemy)
+      enemy.getComponent('shooter').changeToInvincibleState(1000) // 添加了会出bug
       this.enemyList.push(enemy)
       this.enemyNum++
       enemy.on('SHOOTER_DIE', function (event) {
