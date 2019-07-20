@@ -8,6 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
+var Factory = require('enemyFactory')
 // 节流
 function throttle (fn, time = 500) {
   let timer
@@ -21,12 +22,23 @@ function throttle (fn, time = 500) {
   }
 }
 
+function randomRangeInt (n, m) {
+  var c = m - n + 1
+  return Math.floor(Math.random() * c + n)
+}
+
 cc.Class({
   extends: cc.Component,
 
   properties: {
     shooter: cc.Node,
-    scoreLabel: cc.RichText
+    scoreLabel: cc.RichText,
+    score: 0,
+    enemyFactory: Factory,
+    x_up_limit: 400,
+    x_down_limit: -400,
+    y_up_limit: 250,
+    y_down_limit: -250// 中心战斗部分大小
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -48,10 +60,12 @@ cc.Class({
 
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
+    this.shooter.on('SHOOTER_DIE', this.changeToNextScene, this)
   },
 
   start () {
     this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
+    this.frame = 0
   },
 
   changeToNextScene: function () {
@@ -59,9 +73,24 @@ cc.Class({
   },
 
   update (dt) {
-    if (this.shooter.getComponent('shooter').life <= 0) {
-      this.changeToNextScene()
+    this.addScore()
+    this.frame++
+    // if (this.shooter.getComponent('shooter').life <= 0) {
+    //   this.changeToNextScene()
+    // }
+    if (this.shooter != null) { this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString() + '  ' + '分数' + this.score.toString() }
+
+    if (this.frame % 600 === 10) {
+      console.log('suitable frame')
+
+      let x = randomRangeInt(this.x_down_limit, this.x_up_limit)
+      let y = randomRangeInt(this.y_down_limit, this.y_up_limit)
+      console.log('%d %d', x, y)
+      this.enemyFactory.generateEnemy(x, y)
     }
-    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
+  },
+
+  addScore () {
+    this.score++
   }
 })

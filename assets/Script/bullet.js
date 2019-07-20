@@ -17,7 +17,6 @@ cc.Class({
   },
 
   onBeginContact: function (contact, selfCollider, otherCollider) {
-    console.log('crashed')
     this.node.destroy()
   },
 

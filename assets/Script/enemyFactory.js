@@ -12,9 +12,14 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    timeInterval: 1000,
-    hero: cc.Node,
-    speed: 500
+    enemy: {
+      default: null,
+      type: cc.Node
+    },
+    Canvas: {
+      default: null,
+      type: cc.Node
+    }
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -31,32 +36,41 @@ cc.Class({
     //     }
     // },
   },
-  rad2deg: function (x) {
-    return x * 180 / Math.PI
-  },
+
   // LIFE-CYCLE CALLBACKS:
-  shootTowardsHero () {
-    if (this.shooter !== null && this.node !== null && this.shooter.life > 0) {
-      let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
-      let hero = this.hero.convertToWorldSpaceAR(new cc.Vec2(0, 0))
-      let angle = Math.atan2(hero.y - self.y, hero.x - self.x)
-
-      this.node.rotation = this.rad2deg(Math.PI / 2 - angle)
-      this.rigidbody.linearVelocity = cc.v2(-this.speed * Math.cos(angle), -this.speed * Math.sin(angle))
-      this.rigidbody.angularVelocity = 0
-
-      this.node.getComponent('shooter').shoot(angle)
-      setTimeout(() => this.shootTowardsHero(), this.timeInterval)
-    }
-  },
 
   // onLoad () {},
 
   start () {
-    this.shooter = this.node.getComponent('shooter')
-    this.rigidbody = this.node.getComponent(cc.RigidBody)
-    setTimeout(() => this.shootTowardsHero(), this.timeInterval)
-  }
+    this.enemyNum = 0
+    this.enemyList = []
+  },
 
+  generateEnemy (x, y) {
+    console.log(this.enemyNum)
+    if (this.enemyNum === 0) {
+      let enemy = cc.instantiate(this.enemy)
+
+      enemy.x = x
+      enemy.y = y
+      enemy.active = true
+      this.Canvas.addChild(enemy)
+      enemy.getComponent('shooter').changeToInvincibleState(1000) // 添加了会出bug
+      this.enemyList.push(enemy)
+      this.enemyNum++
+      enemy.on('SHOOTER_DIE', function (event) {
+        this.enemyNum--
+        // let newEnemyList = []
+        // for (let enemy of this.enemyList) {
+        //   if (enemy.life <= 0) {
+        //     enemy.destroy()
+        //   } else {
+        //     newEnemyList.push(enemy)
+        //   }
+        // }
+        // this.enemyList = newEnemyList
+      }, this)
+    }
+  }
   // update (dt) {},
 })
