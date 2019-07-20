@@ -24,6 +24,7 @@ cc.Class({
     y_down_limit: 70,
     renew_frequency: 10,
     life: 5
+
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -46,30 +47,32 @@ cc.Class({
 
   onBeginContact: function (contact, selfCollider, otherCollider) {
     if (this.state === 0) {
-      // this.node.dispatchEvent(new cc.Event.EventCustom('shooter_attacked', true))
       this.life--
       if (this.life > 0) {
-        this.changeToInvincibleState()
-      } else {
+        this.changeToInvincibleState(500)
+      } else if (this.life === 0) {
+        this.life--
         this.node.opacity = 0
         this.node.getComponent(cc.RigidBody).enabled = false
         this.node.getComponent(cc.PhysicsPolygonCollider).enabled = false
         this.node.getComponent(cc.PolygonCollider).enabled = false
+        this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_DIE'))
+        // this.node.destroy()
       }
     }
   },
 
   // 改变状态为无敌模式
-  changeToInvincibleState () {
+  changeToInvincibleState (invicibleTime) {
+    console.log('call Invincible')
     this.state = 1
     this.node.opacity = 100
     setTimeout(() => {
-      if (this) {
-        console.log(this)
+      if (this !== null) {
         this.state = 0
         this.node.opacity = 255
       }
-    }, 500)
+    }, invicibleTime)
   },
 
   shoot (angle) {
