@@ -46,32 +46,30 @@ cc.Class({
     this.y_down_limit = -size.height / 2
   },
 
-  rad2deg(x) {
+  rad2deg (x) {
     return x * 180 / Math.PI
   },
-  
+
   start () {
     this.scene = cc.director.getScene()
     this.rigidbody = this.node.getComponent(cc.RigidBody)
   },
 
-  onBeginContact(){
+  onBeginContact () {
     this.life--
-    if (this.life >= 0){
+    if (this.life >= 0) {
       this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_HIT'))
       cc.audioEngine.play(this.hurtAudio, false, 1)
     }
-    if (this.life === 0){
+    if (this.life === 0) {
       this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_DIE'))
       cc.audioEngine.play(this.dieAudio, false, 1)
     }
   },
 
-
-
   shoot (distance, touchLoc) {
-    if (this.life <= 0){
-      return;
+    if (this.life <= 0) {
+      return
     }
     let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
     let angle = Math.atan2(touchLoc.y - self.y, touchLoc.x - self.x)

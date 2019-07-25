@@ -14,7 +14,7 @@ cc.Class({
   properties: {
     timeInterval: 500,
     hero: cc.Node,
-    speed: 500,
+    speed: 500
   },
   rad2deg: function (x) {
     return x * 180 / Math.PI
@@ -53,8 +53,8 @@ cc.Class({
   },
 
   update (dt) {
-    if (this.node.opacity !== 255){
+    if (this.node.opacity !== 255) {
       this.node.opacity += 2
     }
-  },
+  }
 })
