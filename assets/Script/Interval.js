@@ -70,6 +70,9 @@ cc.Class({
 
     setTimeout(this._wrap(this.showDescription, this), this.pre_load_time * 1000)
     setTimeout(this._wrap(this.showSpeaker, this), (this.pre_load_time + this.text.length * this.ch_speed) * 1000)
+    setTimeout(this._wrap(this.startGameScene, this), (this.pre_load_time + this.text.length * this.ch_speed + this.after_load_time) * 1000)
+    
+    cc.director.preloadScene('BattleScene')
   },
 
   charPose (index) {
@@ -103,7 +106,7 @@ cc.Class({
           let dis = Math.random() * self.distance_mean * 2
           self.Floating.node.x = pose.x + dis * Math.cos(dir)
           self.Floating.node.y = pose.y + dis * Math.sin(dir)
-          self.Floating.fontSize = Math.random() * self.float_size_mean * 2
+          self.Floating.fontSize = Math.random() * (self.float_size_mean - 20) * 2 + 40
           self.Floating.string = self.colorString("black", self.char_set[Math.floor(self.char_set.length * Math.random())])
           setTimeout(self._wrap(()=>{
             self.Floating.string = ""

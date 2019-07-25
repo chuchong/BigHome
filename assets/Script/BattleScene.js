@@ -9,18 +9,6 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 var Factory = require('enemyFactory')
-// 节流
-function throttle (fn, time = 500) {
-  let timer
-  return function (...args) {
-    if (timer == null) {
-      fn.apply(this, args)
-      timer = setTimeout(() => {
-        timer = null
-      }, time)
-    }
-  }
-}
 
 function randomRangeInt (n, m) {
   var c = m - n + 1
@@ -35,62 +23,92 @@ cc.Class({
     scoreLabel: cc.RichText,
     score: 0,
     enemyFactory: Factory,
+    background: cc.Node,
+    ask: cc.Node,
     x_up_limit: 400,
     x_down_limit: -400,
     y_up_limit: 250,
     y_down_limit: -250// 中心战斗部分大小
-    // foo: {
-    //     // ATTRIBUTES:
-    //     default: null,        // The default value will be used only when the component attaching
-    //                           // to a node for the first time
-    //     type: cc.SpriteFrame, // optional, default is typeof default
-    //     serializable: true,   // optional, default is true
-    // },
-    // bar: {
-    //     get () {
-    //         return this._bar;
-    //     },
-    //     set (value) {
-    //         this._bar = value;
-    //     }
-    // },
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
     cc.director.getPhysicsManager().enabled = true
-    this.shooter.on('SHOOTER_DIE', this.changeToNextScene, this)
+    this.shooter.on('SHOOTER_DIE', this._ask, this)
   },
 
   start () {
-    this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString()
+    this.scoreLabel.string = 'Life: ' + this.shooter.getComponent('shooter').life.toString()
     this.frame = 0
+    this.ask.active = false;
+    this.finish = false
+    this.shooter.on('SHOOTER_HIT', function(){
+      this.shake()
+    }, this)
   },
 
-  changeToNextScene: function () {
-    cc.director.loadScene('StartScene')
+  _ask() {
+    this.finish = true;
+    this.background.opacity = 100;
+    this.ask.active = true;
+    this.ask.getComponent('ask').setScore(this.score);
+    this.ask.on("NEXT", ()=>{
+      cc.director.loadScene('BattleScene')
+    })
+    this.ask.on("RETRY", ()=>{
+      cc.director.loadScene('BattleScene')
+    })
+    this.ask.scaleX = 0.01
+    this.ask.scaleY = 0.01
+    let scale = cc.scaleTo(0.3, 1.0)
+    this.ask.runAction(scale)
+  },
+
+  shake() {
+    let x = this.background.x; let y = this.background.y;
+    let offset = 3;
+    let action = cc.repeatForever(
+        cc.sequence(
+            cc.moveTo(0.018, cc.v2(x + (5 + offset), y + (offset + 7))),
+            cc.moveTo(0.018, cc.v2(x - (6 + offset), y + (offset + 7))),
+            cc.moveTo(0.018, cc.v2(x - (13 + offset), y + (offset + 3))),
+            cc.moveTo(0.018, cc.v2(x + (3 + offset), y - (6 + offset))),
+            cc.moveTo(0.018, cc.v2(x - (5 + offset), y + (offset + 5))),
+            cc.moveTo(0.018, cc.v2(x + (2 + offset), y - (8 + offset))),
+            cc.moveTo(0.018, cc.v2(x - (8 + offset), y - (10 + offset))),
+            cc.moveTo(0.018, cc.v2(x + (3 + offset), y + (offset + 10))),
+            cc.moveTo(0.018, cc.v2(x + (0 + offset), y + (offset + 0)))
+        )
+    )
+    this.background.runAction(action);
+    setTimeout(() => {
+        this.background.stopAction(action);
+        this.background.x = x; this.background.y = y;
+    }, 300);
   },
 
   update (dt) {
-    this.addScore()
-    this.frame++
-    // if (this.shooter.getComponent('shooter').life <= 0) {
-    //   this.changeToNextScene()
-    // }
-    if (this.shooter != null) { this.scoreLabel.string = '剩余生命' + this.shooter.getComponent('shooter').life.toString() + '  ' + '分数' + this.score.toString() }
+    if (!this.finish){
+      this.score++
+      this.frame++
+    }
+    let life = this.shooter.getComponent('shooter').life.toString()
+    if (life < 0){
+      life = 0
+    }
+    this.scoreLabel.string = 'Life: ' + life.toString() + '  ' + '<br/>Score: ' + this.score.toString()
 
     if (this.frame % 600 === 10) {
       console.log('suitable frame')
-
-      let x = randomRangeInt(this.x_down_limit, this.x_up_limit)
-      let y = randomRangeInt(this.y_down_limit, this.y_up_limit)
-      console.log('%d %d', x, y)
+      let shooterPos = this.shooter.getComponent('shooter').node
+      let x = shooterPos.x
+      let y = shooterPos.y
+      while (x - shooterPos.x + y - shooterPos.y < 100){
+        x = randomRangeInt(this.x_down_limit, this.x_up_limit)
+        y = randomRangeInt(this.y_down_limit, this.y_up_limit)
+      }
       this.enemyFactory.generateEnemy(x, y)
     }
   },
-
-  addScore () {
-    this.score++
-  }
 })

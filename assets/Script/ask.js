@@ -9,29 +9,32 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-  extends: cc.Component,
+    extends: cc.Component,
 
-  properties: {
-    
-  },
+    properties: {
+        score: cc.Label,
+    },
 
-  // LIFE-CYCLE CALLBACKS:
+    // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {},
+    // onLoad () {},
 
-  start () {
-    let canvas = cc.find('Canvas')
-    canvas.on(cc.Node.EventType.TOUCH_START, this.onTouchBegan, this)
-  },
+    start () {
+        this.node.x = cc.winSize.width / 2
+        this.node.y = cc.winSize.height / 2
+    },
 
-  rad2deg: function (x) {
-    return x * 180 / Math.PI
-  },
+    setScore (score) {
+        this.score.string = "Your score: " + score
+    },
 
-  onTouchBegan: function (event) {
-    let touchLoc = event.touch.getLocation()
-    this.node.getComponent('shooter').shoot(50, touchLoc)
-  }
+    onNext () {
+        this.node.dispatchEvent(new cc.Event.EventCustom('NEXT'))
+    },
 
-  // update (dt) {},
-})
+    onRetry () {
+        this.node.dispatchEvent(new cc.Event.EventCustom('RETRY'))
+    }
+
+    // update (dt) {},
+});

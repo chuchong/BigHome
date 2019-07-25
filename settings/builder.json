@@ -16,10 +16,8 @@
   },
   "encryptJs": true,
   "excludeScenes": [
-    "2d2f792f-a40c-49bb-a189-ed176a246e49",
-    "d82a7109-e00d-46c6-b02e-1729484ad311",
-    "7dcb5a68-752f-46a0-a65a-66cd04c86133",
-    "c4d3b9bb-e14d-4dce-b692-73f4bc2af7b8"
+    "c4d3b9bb-e14d-4dce-b692-73f4bc2af7b8",
+    "9b6bd112-39b8-4c8e-9898-e5ea6df5a3c5"
   ],
   "fb-instant-games": {},
   "includeSDKBox": false,
@@ -40,7 +38,7 @@
     "orientation": "portrait",
     "zip": false
   },
-  "startScene": "9b6bd112-39b8-4c8e-9898-e5ea6df5a3c5",
+  "startScene": "7dcb5a68-752f-46a0-a65a-66cd04c86133",
   "title": "hello_world",
   "webOrientation": "landscape",
   "wechatgame": {

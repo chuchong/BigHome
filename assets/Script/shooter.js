@@ -18,13 +18,9 @@ cc.Class({
       default: null,
       type: cc.Node
     },
-    x_up_limit: 400,
-    x_down_limit: -400,
-    y_up_limit: 570,
-    y_down_limit: 70,
     renew_frequency: 10,
-    life: 5
-
+    life: 5,
+    speed: 1000
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -32,9 +28,13 @@ cc.Class({
   onLoad () {
     // let manager = cc.director.getPhysicsManager()
     // manager.enabled = true
-    this.state = 0// state 0 代表一般,state 1代表无敌状态, -1代表死亡
     // this.score = 0
     // this.count = 0
+    let size = cc.winSize
+    this.x_up_limit = size.width / 2
+    this.x_down_limit = -size.width / 2
+    this.y_up_limit = size.height / 2
+    this.y_down_limit = -size.height / 2
   },
 
   rad2deg: function (x) {
@@ -43,41 +43,30 @@ cc.Class({
 
   start () {
     this.scene = cc.director.getScene()
+    this.rigidbody = this.node.getComponent(cc.RigidBody)
   },
 
   onBeginContact: function (contact, selfCollider, otherCollider) {
-    if (this.state === 0) {
-      this.life--
-      if (this.life > 0) {
-        this.changeToInvincibleState(500)
-      } else if (this.life === 0) {
-        this.state = -1
-        this.node.opacity = 0
-        this.node.getComponent(cc.RigidBody).enabled = false
-        this.node.getComponent(cc.PhysicsPolygonCollider).enabled = false
-        this.node.getComponent(cc.PolygonCollider).enabled = false
-        this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_DIE'))
-        // this.node.destroy()
-      }
+    this.life--
+    if (this.life >= 0){
+      this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_HIT'))
+    }
+    if (this.life === 0){
+      this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_DIE'))
     }
   },
 
-  // 改变状态为无敌模式
-  changeToInvincibleState (invicibleTime) {
-    console.log('call Invincible')
-    this.state = 1
-    this.node.opacity = 100
-    setTimeout(() => {
-      if (this.node !== null) {
-        this.state = 0
-        this.node.opacity = 255
-      }
-    }, invicibleTime)
-  },
-
-  shoot (angle) {
+  shoot (distance, touchLoc) {
+    if (this.life <= 0){
+      return;
+    }
+    let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
+    let angle = Math.atan2(touchLoc.y - self.y, touchLoc.x - self.x)
+    this.node.rotation = this.rad2deg(Math.PI / 2 - angle)
+    this.rigidbody.linearVelocity = cc.v2(-this.speed * Math.cos(angle), -this.speed * Math.sin(angle))
+    this.rigidbody.angularVelocity = 0
     let bullet = cc.instantiate(this.bullet)
-    bullet.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 60))
+    bullet.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0, distance))
     bullet.rotation = this.rad2deg(-angle) - 45
     bullet.active = true
     let rigid = bullet.getComponent(cc.RigidBody)

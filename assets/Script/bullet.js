@@ -2,14 +2,18 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    border_width: 800,
-    border_height: 500
+    partical: {
+      default: null,
+      type: cc.Node
+    },
   },
 
   // use this for initialization
   onLoad: function () {
     cc.director.getPhysicsManager().enabled = true
     this.winSize = cc.winSize
+    this.border_width = this.winSize.width
+    this.border_height = this.winSize.height
     this.x_up_limit = this.winSize.width / 2 + this.border_width / 2
     this.x_down_limit = this.winSize.width / 2 - this.border_width / 2
     this.y_up_limit = this.winSize.height / 2 + this.border_height / 2
@@ -17,13 +21,15 @@ cc.Class({
   },
 
   onBeginContact: function (contact, selfCollider, otherCollider) {
+    let part = cc.instantiate(this.partical)
+    part.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
+    part.active = true
+    this.scene.addChild(part)
     this.node.destroy()
   },
 
   start () {
-    this.ctx = this.getComponent(cc.Graphics)
-    this.ctx.circle(0, 0, 5)
-    this.ctx.stroke()
+    this.scene = cc.director.getScene()
   },
 
   update: function (dt) {
