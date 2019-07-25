@@ -33,10 +33,14 @@ cc.Class({
   // onLoad () {},
 
   setUpPoints () {
-    this.points.push([300, 500])
-    this.points.push([200, 500])
-    this.points.push([100, 500])
-    this.points.push([100, 100])// 第一个点
+    this.points.push([700, 500])
+    this.points.push([700, 100])
+    this.points.push([700, 500])
+    this.points.push([700, 100])
+    this.points.push([400, 500])
+    this.points.push([400, 100])
+    this.points.push([400, 500])
+    this.points.push([400, 100])
   },
 
   paintTopPoint () {
@@ -95,7 +99,10 @@ cc.Class({
         this.paintTopPoint()
       }
     }
-  }
+  },
 
+  hasScore () {
+    return false
+  }
   // update (dt) {},
 })

@@ -12,7 +12,7 @@ var stageHighestScore = [
 var currentStage = 4 // 从1开始
 
 var descriptions = [
-  'Mission: 发射50粒子弹',
+  '这是关于小宇宙的任务\nMission: 发射50粒子弹',
   'Mission: 依次到达所有指定位置',
   'Mission: 消灭所有失控体',
   'Mission: 请尽可能地存活下去'

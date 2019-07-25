@@ -9,33 +9,81 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: require('GameLogic'),
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-    },
+  properties: {
+    enemyCD: 600
+    // foo: {
+    //     // ATTRIBUTES:
+    //     default: null,        // The default value will be used only when the component attaching
+    //                           // to a node for the first time
+    //     type: cc.SpriteFrame, // optional, default is typeof default
+    //     serializable: true,   // optional, default is true
+    // },
+    // bar: {
+    //     get () {
+    //         return this._bar;
+    //     },
+    //     set (value) {
+    //         this._bar = value;
+    //     }
+    // },
+  },
 
-    // LIFE-CYCLE CALLBACKS:
+  // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+  // onLoad () {},
+  setUpPoints () {
+    this.points.push([-250, -250])
+    this.points.push([0, -250])
+    this.points.push([250, -250])
+    this.points.push([250, 0])
+    this.points.push([250, 250])
+    this.points.push([0, 250])
+    this.points.push([-250, 250])
+    this.points.push([-250, 0])
+  },
 
-    start () {
+  ctor () {
+    this.enemyNum = 6
+    this.points = []
+    this.setUpPoints()
+  },
 
-    },
+  setup () {
+    for (let point of this.points) {
+      this.director.enemyFactory.generateEnemy(point[0], point[1])
+    }
+    this.enemyNum = this.director.enemyFactory.enemyNum
+  },
 
-    // update (dt) {},
-});
+  hasNextStage () {
+    return true
+  },
+
+  isWin () {
+    if (this.director.enemyFactory.enemyNum <= 0) {
+      return true
+    } else {
+      return false
+    }
+  },
+
+  setScoreLabel () {
+    let life = this.director.shooter.getComponent('shooter').life.toString()
+    if (life < 0) {
+      life = 0
+    }
+    this.director.scoreLabel.string = 'Life: ' + life.toString()
+  },
+
+  updateSprite () {
+
+  },
+
+  hasScore () {
+    return false
+  }
+
+  // update (dt) {},
+})

@@ -74,6 +74,10 @@ cc.Class({
     if (this.director.frame % 1000 === 0) {
       this.enemyCD /= 2
     }
+  },
+
+  hasScore () {
+    return true
   }
 
   // update (dt) {},

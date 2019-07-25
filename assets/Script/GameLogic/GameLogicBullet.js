@@ -48,6 +48,10 @@ cc.Class({
     }
     console.log(this.bulletCnt)
     this.director.scoreLabel.string = 'Life: ' + life.toString() + '  ' + '<br/>bullet count: ' + this.bulletCnt.toString()
+  },
+
+  hasScore () {
+    return false
   }
 
   // update (dt) {},

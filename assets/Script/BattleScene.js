@@ -80,7 +80,7 @@ cc.Class({
       this.finish = true
       this.background.opacity = 100
       this.winAsk.active = true
-      this.winAsk.getComponent('ask').setScore(this.score)
+      if (this.gameLogic.hasScore()) { this.loseAsk.getComponent('ask').setScore(this.score) }
       if (this.gameLogic.hasNextStage()) {
         this.winAsk.getComponent('ask').showNext()
         this.winAsk.on('NEXT', () => {
@@ -106,7 +106,7 @@ cc.Class({
       this.finish = true
       this.background.opacity = 100
       this.loseAsk.active = true
-      this.loseAsk.getComponent('ask').setScore(this.score)
+      if (this.gameLogic.hasScore()) { this.loseAsk.getComponent('ask').setScore(this.score) }
       // this.loseAsk.on('NEXT', () => {
       //   cc.director.loadScene('BattleScene')
       // })

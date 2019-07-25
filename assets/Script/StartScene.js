@@ -61,7 +61,11 @@ cc.Class({
 
   setInfo: function () {
     this.titleInfo.string = '<outline width = 5 color = #000000>' + this.titles[this.id - 1] + '</outline>'
-    this.highestScoreInfo.string = '<outline width = 5 color = #000000> 最高分 : ' + this.highestScore[this.id - 1] + '</outline>'
+    if (this.id === 4) {
+      this.highestScoreInfo.string = '<outline width = 5 color = #000000> 最高分 : ' + this.highestScore[this.id - 1] + '</outline>'
+    } else { // TODO whether succeed
+      this.highestScoreInfo.string = 'Mission awaited'
+    }
   },
 
   increId: function () {

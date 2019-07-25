@@ -36,6 +36,10 @@ var GameLogic = cc.Class({
 
   updateSprite () {
 
+  },
+
+  hasScore () {
+
   }
 
   // update (dt) {},
