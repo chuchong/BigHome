@@ -12,7 +12,10 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    
+    shootAudio: {
+      default: null,
+      type: cc.AudioClip
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -24,13 +27,14 @@ cc.Class({
     canvas.on(cc.Node.EventType.TOUCH_START, this.onTouchBegan, this)
   },
 
-  rad2deg: function (x) {
+  rad2deg(x) {
     return x * 180 / Math.PI
   },
 
-  onTouchBegan: function (event) {
+  onTouchBegan(event) {
     let touchLoc = event.touch.getLocation()
     this.node.getComponent('shooter').shoot(50, touchLoc)
+    cc.audioEngine.play(this.shootAudio, false, 1)
   }
 
   // update (dt) {},

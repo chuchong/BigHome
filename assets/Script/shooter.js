@@ -20,7 +20,16 @@ cc.Class({
     },
     renew_frequency: 10,
     life: 5,
-    speed: 1000
+    speed: 1000,
+    dieAudio: {
+      default: null,
+      type: cc.AudioClip
+    },
+    hurtAudio: {
+      default: null,
+      type: cc.AudioClip
+    }
+
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -37,24 +46,28 @@ cc.Class({
     this.y_down_limit = -size.height / 2
   },
 
-  rad2deg: function (x) {
+  rad2deg(x) {
     return x * 180 / Math.PI
   },
-
+  
   start () {
     this.scene = cc.director.getScene()
     this.rigidbody = this.node.getComponent(cc.RigidBody)
   },
 
-  onBeginContact: function (contact, selfCollider, otherCollider) {
+  onBeginContact(){
     this.life--
     if (this.life >= 0){
       this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_HIT'))
+      cc.audioEngine.play(this.hurtAudio, false, 1)
     }
     if (this.life === 0){
       this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_DIE'))
+      cc.audioEngine.play(this.dieAudio, false, 1)
     }
   },
+
+
 
   shoot (distance, touchLoc) {
     if (this.life <= 0){
