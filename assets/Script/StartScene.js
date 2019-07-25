@@ -32,6 +32,14 @@ cc.Class({
       default: null,
       type: cc.Sprite
     },
+    startAudio: {
+      default: null,
+      type: cc.AudioClip
+    },
+    switchAudio: {
+      default: null,
+      type: cc.AudioClip
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -39,7 +47,8 @@ cc.Class({
   // onLoad () {},
 
   start () {
-    cc.game.setFrameRate(24);
+    cc.game.setFrameRate(24)
+    this.audioPool = []
     this.stages = 0
     // TODO: 这里可能有问题,关键在如何查询动态得最高成绩
     this.titles = StageInfo.titles
@@ -47,12 +56,13 @@ cc.Class({
     for (let i = 0; i < this.titles.length; i++) {
       this.stages++
     }
+    cc.director.getPhysicsManager().enabled = false
     this.setInfo()
   },
-  
+
   setInfo: function () {
-    this.titleInfo.string = "<outline width = 5 color = #000000>" + this.titles[this.id - 1] + "</outline>"
-    this.highestScoreInfo.string = '<outline width = 5 color = #000000> 最高分 : ' + this.highestScore[this.id - 1] + "</outline>"
+    this.titleInfo.string = '<outline width = 5 color = #000000>' + this.titles[this.id - 1] + '</outline>'
+    this.highestScoreInfo.string = '<outline width = 5 color = #000000> 最高分 : ' + this.highestScore[this.id - 1] + '</outline>'
   },
 
   increId: function () {
@@ -72,21 +82,41 @@ cc.Class({
   },
 
   startGameScene: function () {
-    //cc.director.preloadScene('BattleScene')
-    StageInfo.currentStage = this.id;
-    let fade_time = 1.5;
-    let number = fade_time * 60;
-    let dt = 1000.0 / 60.0;
-    for (let i = 0; i < number; i++){
-      setTimeout(()=>{
-        this.canvas.node.opacity = Math.floor((1 - i / number) * 255);
-      },i * dt)
+    // cc.director.preloadScene('BattleScene')
+    StageInfo.currentStage = this.id
+    let fade_time = 1.5
+    let number = fade_time * 60
+    let dt = 1000.0 / 60.0
+    for (let i = 0; i < number; i++) {
+      setTimeout(() => {
+        this.canvas.node.opacity = Math.floor((1 - i / number) * 255)
+      }, i * dt)
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       cc.director.loadScene('Interval')
     }, 1000 * fade_time)
   },
 
+  playStartAudio () {
+    var id = cc.audioEngine.play(this.startAudio, false, 1)
+    this.audioPool.push(id)
+    // set finish callback
+    cc.audioEngine.setFinishCallback(id, this.removeAudio.bind(this, id))
+  },
+
+  playSwitchAudio () {
+    var id = cc.audioEngine.play(this.switchAudio, false, 1)
+    this.audioPool.push(id)
+    // set finish callback
+    cc.audioEngine.setFinishCallback(id, this.removeAudio.bind(this, id))
+  },
+
+  removeAudio (id) {
+    var idx = this.audioPool.indexOf(id)
+    if (idx > -1) {
+      this.audioPool.splice(idx, 1)
+    }
+  }
 
   // update (dt) {
   // },

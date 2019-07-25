@@ -23,7 +23,15 @@ cc.Class({
     y_up_limit: 570,
     y_down_limit: 70,
     renew_frequency: 10,
-    life: 5
+    life: 5,
+    dieAudio: {
+      default: null,
+      type: cc.AudioClip
+    },
+    hurtAudio: {
+      default: null,
+      type: cc.AudioClip
+    }
 
   },
 
@@ -50,6 +58,7 @@ cc.Class({
       this.life--
       if (this.life > 0) {
         this.changeToInvincibleState(500)
+        cc.audioEngine.play(this.hurtAudio, false, 1)
       } else if (this.life === 0) {
         this.state = -1
         this.node.opacity = 0
@@ -57,6 +66,7 @@ cc.Class({
         this.node.getComponent(cc.PhysicsPolygonCollider).enabled = false
         this.node.getComponent(cc.PolygonCollider).enabled = false
         this.node.dispatchEvent(new cc.Event.EventCustom('SHOOTER_DIE'))
+        cc.audioEngine.play(this.dieAudio, false, 1)
         // this.node.destroy()
       }
     }

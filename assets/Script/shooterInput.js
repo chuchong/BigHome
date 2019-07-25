@@ -12,7 +12,11 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    speed: 1000
+    speed: 1000,
+    shootAudio: {
+      default: null,
+      type: cc.AudioClip
+    }
     // foo: {
     //     // ATTRIBUTES:
     //     default: null,        // The default value will be used only when the component attaching
@@ -52,6 +56,8 @@ cc.Class({
     this.rigidbody.linearVelocity = cc.v2(-this.speed * Math.cos(angle), -this.speed * Math.sin(angle))
     this.rigidbody.angularVelocity = 0
     this.node.getComponent('shooter').shoot(angle)
+
+    cc.audioEngine.play(this.shootAudio, false, 1)
   }
 
   // update (dt) {},
