@@ -19,7 +19,7 @@ cc.Class({
     Canvas: {
       default: null,
       type: cc.Node
-    },
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -31,20 +31,33 @@ cc.Class({
     this.enemyList = []
   },
 
-  generateEnemy (x, y) {
-    console.log(this.enemyNum)
+  generateOnlyEnemy (x, y) {
     if (this.enemyNum === 0) {
       let enemy = cc.instantiate(this.enemy)
       enemy.x = x
       enemy.y = y
       enemy.active = true
       this.Canvas.addChild(enemy)
-      //this.enemyList.push(enemy)
+      // this.enemyList.push(enemy)
       this.enemyNum++
       enemy.on('SHOOTER_DIE', function (event) {
         this.enemyNum--
       }, this)
     }
+  },
+
+  generateEnemy (x, y) {
+    let enemy = cc.instantiate(this.enemy)
+    enemy.x = x
+    enemy.y = y
+    enemy.active = true
+    this.Canvas.addChild(enemy)
+    this.enemyList.push(enemy)
+    this.enemyNum++
+
+    enemy.on('SHOOTER_DIE', function (event) {
+      this.enemyNum--
+    }, this)
   }
   // update (dt) {},
 })

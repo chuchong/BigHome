@@ -19,7 +19,7 @@ cc.Class({
   rad2deg: function (x) {
     return x * 180 / Math.PI
   },
-  // LIFE-CYCLE CALLBACKS:
+
   shootTowardsHero () {
     if (this.shooter !== null && this.node !== null) {
       let self = this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))

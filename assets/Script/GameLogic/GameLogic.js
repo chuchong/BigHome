@@ -8,48 +8,35 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-cc.Class({
+var GameLogic = cc.Class({
   extends: cc.Component,
 
-  properties: {
-    score: cc.Label,
-    next: {
+  properties: () => ({
+    director: {
       default: null,
-      type: cc.Node
+      type: require('BattleScene')
     }
-  },
-
-  // LIFE-CYCLE CALLBACKS:
-
-  // onLoad () {},
+  }),
 
   start () {
-    this.node.x = cc.winSize.width / 2
-    this.node.y = cc.winSize.height / 2
+
   },
 
-  setScore (score) {
-    this.score.string = 'Your score: ' + score
+  hasNextStage: function () {
+
   },
 
-  onNext () {
-    this.node.dispatchEvent(new cc.Event.EventCustom('NEXT'))
+  isWin () {
+
   },
 
-  onRetry () {
-    this.node.dispatchEvent(new cc.Event.EventCustom('RETRY'))
+  setScoreLabel () {
+
   },
 
-  hideNext () {
-    if (this.next !== null) {
-      this.next.active = false
-    }
-  },
+  updateSprite () {
 
-  showNext () {
-    if (this.next !== null) {
-      this.next.active = true
-    }
   }
+
   // update (dt) {},
 })

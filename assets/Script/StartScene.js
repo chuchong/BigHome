@@ -99,22 +99,11 @@ cc.Class({
   playStartAudio () {
     var id = cc.audioEngine.play(this.startAudio, false, 1)
     this.audioPool.push(id)
-    // set finish callback
-    cc.audioEngine.setFinishCallback(id, this.removeAudio.bind(this, id))
   },
 
   playSwitchAudio () {
     var id = cc.audioEngine.play(this.switchAudio, false, 1)
     this.audioPool.push(id)
-    // set finish callback
-    cc.audioEngine.setFinishCallback(id, this.removeAudio.bind(this, id))
-  },
-
-  removeAudio (id) {
-    var idx = this.audioPool.indexOf(id)
-    if (idx > -1) {
-      this.audioPool.splice(idx, 1)
-    }
   }
 
   // update (dt) {

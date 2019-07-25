@@ -9,47 +9,46 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-  extends: cc.Component,
+  extends: require('GameLogic'),
 
   properties: {
-    score: cc.Label,
-    next: {
-      default: null,
-      type: cc.Node
-    }
+    requiredBullet: 50
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   // onLoad () {},
 
-  start () {
-    this.node.x = cc.winSize.width / 2
-    this.node.y = cc.winSize.height / 2
+  ctor () {
+    this.bulletCnt = 0
   },
 
-  setScore (score) {
-    this.score.string = 'Your score: ' + score
+  setup () {
+    cc.find('Canvas').on(cc.Node.EventType.TOUCH_START, this.onTouchBegan, this, true)
   },
 
-  onNext () {
-    this.node.dispatchEvent(new cc.Event.EventCustom('NEXT'))
+  hasNextStage () {
+    return true
   },
 
-  onRetry () {
-    this.node.dispatchEvent(new cc.Event.EventCustom('RETRY'))
-  },
-
-  hideNext () {
-    if (this.next !== null) {
-      this.next.active = false
+  isWin () {
+    if (this.bulletCnt >= this.requiredBullet) {
+      return true
     }
   },
 
-  showNext () {
-    if (this.next !== null) {
-      this.next.active = true
+  onTouchBegan (event) {
+    this.bulletCnt++
+  },
+
+  setScoreLabel () {
+    let life = this.director.shooter.getComponent('shooter').life.toString()
+    if (life < 0) {
+      life = 0
     }
+    console.log(this.bulletCnt)
+    this.director.scoreLabel.string = 'Life: ' + life.toString() + '  ' + '<br/>bullet count: ' + this.bulletCnt.toString()
   }
+
   // update (dt) {},
 })

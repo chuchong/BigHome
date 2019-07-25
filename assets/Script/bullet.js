@@ -6,6 +6,10 @@ cc.Class({
       default: null,
       type: cc.Node
     },
+    director: {
+      default: null,
+      type: cc.Node
+    }
   },
 
   // use this for initialization
