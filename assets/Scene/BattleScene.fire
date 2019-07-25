@@ -47,8 +47,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.4023567835489909,
-      "y": 0.4023567835489909,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_quat": {
@@ -2113,7 +2113,9 @@
     },
     "renew_frequency": 10,
     "life": 1,
-    "crashAudio": null,
+    "crashAudio": {
+      "__uuid__": "8256ff3b-8d40-4b18-b226-7fa078ec633c"
+    },
     "_id": "5eqSLhOxxNaKeHVRNTjD3/"
   },
   {

@@ -1,8 +1,8 @@
 // 用于配置关卡标题
-var stageTitle = [ 'wxs太菜了',
-  '真的太菜',
-  'lsy就很强',
-  '让我偷偷膜'
+var stageTitle = [ 'Lab 0',
+  'Lab 3',
+  'Lab 207',
+  'L**  3300'
 ]
 
 var stageHighestScore = [
@@ -12,17 +12,17 @@ var stageHighestScore = [
 var currentStage = 4 // 从1开始
 
 var descriptions = [
-  '祝福京阿尼！',
-  '严惩凶手！',
-  '希望京阿尼挺过难关，继续创造美',
-  '别多说了给信仰充值吧别多说了给信仰充值吧别多说了给信仰充值吧别多说了给信仰充值吧。'
+  'Mission: 发射50粒子弹',
+  'Mission: 到达位置A',
+  'Mission: 消灭所有失控体',
+  'Mission: 请尽可能地存活下去'
 ]
 
 var speaker = [
-  '—— 野猪',
-  '—— 菜嘘鲲',
-  '—— 鲁迅',
-  '—— 陈独秀'
+  '—— Dr.D ',
+  '—— Dr.D ',
+  '—— the General ',
+  '—— Mr. Robot '
 ]
 
 module.exports = {
