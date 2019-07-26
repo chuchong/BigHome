@@ -9,24 +9,24 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
+  properties: {
 
-    },
+  },
 
-    // LIFE-CYCLE CALLBACKS:
+  // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-    },
+  onLoad () {
+  },
 
-    start () {
-        this.ctx = this.getComponent(cc.Graphics); 
-        this.ctx.rect(-this.node.width / 2, -this.node.height / 2, this.node.width, this.node.height)
-        this.ctx.stroke()
-    },
+  start () {
+    this.ctx = this.getComponent(cc.Graphics)
+    this.ctx.rect(-this.node.width / 2, -this.node.height / 2, this.node.width, this.node.height)
+    this.ctx.stroke()
+  },
 
-    update (dt) {
-        
-    },
-});
+  update (dt) {
+
+  }
+})
