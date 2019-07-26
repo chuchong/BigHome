@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.406787109375,
-      "y": 0.406787109375,
+      "x": 0.4019010543823242,
+      "y": 0.4019010543823242,
       "z": 1
     },
     "_quat": {
@@ -520,7 +520,7 @@
     "_N$horizontalAlign": 0,
     "_N$fontSize": 40,
     "_N$font": {
-      "__uuid__": "78e6b405-71a2-4add-a33f-5a6b970a190b"
+      "__uuid__": "fb563a27-5e45-4876-b824-0654c519235e"
     },
     "_N$maxWidth": 0,
     "_N$lineHeight": 500,
@@ -542,7 +542,7 @@
     "_N$horizontalAlign": 1,
     "_N$fontSize": 40,
     "_N$font": {
-      "__uuid__": "78e6b405-71a2-4add-a33f-5a6b970a190b"
+      "__uuid__": "fb563a27-5e45-4876-b824-0654c519235e"
     },
     "_N$maxWidth": 600.1,
     "_N$lineHeight": 60,
@@ -625,7 +625,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "78e6b405-71a2-4add-a33f-5a6b970a190b"
+      "__uuid__": "fb563a27-5e45-4876-b824-0654c519235e"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
