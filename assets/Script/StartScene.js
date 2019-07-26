@@ -47,9 +47,9 @@ cc.Class({
   // onLoad () {},
 
   start () {
+    cc.game.setFrameRate(30);
     this.audioPool = []
     this.stages = 0
-    // TODO: 这里可能有问题,关键在如何查询动态得最高成绩
     this.titles = StageInfo.titles
     this.highestScore = StageInfo.highestScore
     for (let i = 0; i < this.titles.length; i++) {
