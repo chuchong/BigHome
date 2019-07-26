@@ -36,11 +36,11 @@
     "zip": false
   },
   "startScene": "9b6bd112-39b8-4c8e-9898-e5ea6df5a3c5",
-  "title": "hello_world",
+  "title": "liulangshenkong",
   "webOrientation": "landscape",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
-    "appid": "wx6ac3f5090a6b99c5",
+    "appid": "wx7d6de9b1d55ecbd8",
     "orientation": "landscapeRight",
     "separate_engine": false,
     "subContext": "wx-open-data-project"

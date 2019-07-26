@@ -48,6 +48,7 @@ cc.Class({
   },
 
   start () {
+    cc.game.setFrameRate(30);
     let size = cc.winSize
     this.node.width = size.width
     this.node.height = size.height

@@ -48,6 +48,7 @@ cc.Class({
   },
 
   start () {
+    cc.game.setFrameRate(30);
     this.currentStage = StageInfo.currentStage
     switch (this.currentStage) {
       case 4:

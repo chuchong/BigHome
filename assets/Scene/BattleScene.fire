@@ -50,8 +50,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.4062255859375,
-      "y": 0.4062255859375,
+      "x": 0.4687064625048448,
+      "y": 0.4687064625048448,
       "z": 1
     },
     "_quat": {
@@ -1533,7 +1533,7 @@
     },
     "_spriteFrame": null,
     "_texture": null,
-    "_stopped": true,
+    "_stopped": false,
     "playOnLoad": true,
     "autoRemoveOnFinish": false,
     "totalParticles": 150,
@@ -1543,9 +1543,9 @@
     "lifeVar": 0.14,
     "_startColor": {
       "__type__": "cc.Color",
-      "r": 51,
-      "g": 102,
-      "b": 175,
+      "r": 131,
+      "g": 166,
+      "b": 216,
       "a": 255
     },
     "_startColorVar": {
@@ -2808,7 +2808,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 300,
+      "width": 500,
       "height": 50
     },
     "_anchorPoint": {
@@ -2818,7 +2818,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -310.74,
+      "x": -180,
       "y": 245,
       "z": 0
     },
@@ -2853,7 +2853,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 19.25999999999999,
+    "_left": 50,
     "_right": 0,
     "_top": 50,
     "_bottom": 0,
@@ -3642,7 +3642,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 130,
       "height": 40
     },
     "_anchorPoint": {

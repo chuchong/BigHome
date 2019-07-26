@@ -47,7 +47,7 @@ cc.Class({
   // onLoad () {},
 
   start () {
-    cc.game.setFrameRate(30);
+    cc.game.setFrameRate(60);
     this.audioPool = []
     this.stages = 0
     this.titles = StageInfo.titles
