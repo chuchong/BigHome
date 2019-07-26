@@ -39,6 +39,10 @@ cc.Class({
     switchAudio: {
       default: null,
       type: cc.AudioClip
+    },
+    avatar: {
+      default: null,
+      type: cc.Node
     }
   },
 
@@ -48,6 +52,7 @@ cc.Class({
 
   start () {
     cc.game.setFrameRate(60);
+    this.avatar.active = true
     this.audioPool = []
     this.stages = 0
     this.titles = StageInfo.titles
@@ -90,7 +95,11 @@ cc.Class({
   },
 
   startGameScene: function () {
-    // cc.director.preloadScene('BattleScene')
+    if (typeof this.started !== 'undefined'){
+      return;
+    }
+    this.avatar.active = false
+    this.started = true
     StageInfo.currentStage = this.id
     let fade_time = 1.5
     let number = fade_time * 60

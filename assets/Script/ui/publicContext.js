@@ -23,7 +23,7 @@ cc.Class({
     this._showAction = cc.moveTo(0.5, this.wxSubContextView.x, 0)
     this._hideAction = cc.moveTo(0.5, this.wxSubContextView.x, Math.floor(size.height))
 
-    this.wxSubContextView.runAction(this._hideAction)
+    this.wxSubContextView.runAction(cc.moveTo(0.1, this.wxSubContextView.x, Math.floor(size.height)))
 
     this.background.on('touchstart', this.onClick, this)
   },
@@ -65,11 +65,14 @@ cc.Class({
   },
 
   onClick () {
+    if (this.wxSubContextView === null){
+      return
+    }
     this._isShow = !this._isShow
     if (this._isShow) {
       this.wxSubContextView.runAction(this._showAction)
     } else {
       this.wxSubContextView.runAction(this._hideAction)
     }
-  }
+  },
 })

@@ -55,7 +55,7 @@ cc.Class({
     if (life < 0) {
       life = 0
     }
-    this.director.scoreLabel.string = 'Life: ' + life.toString() + '  ' + '<br/>Score: ' + this.director.score.toString()
+    this.director.scoreLabel.string = 'Life:' + life.toString() + '  ' + '<br/>Score:' + this.director.score.toString()
   },
 
   updateSprite () {

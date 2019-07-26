@@ -54,7 +54,7 @@ cc.Class({
 
   update (dt) {
     if (this.node.opacity !== 255) {
-      this.node.opacity += 2
+      this.node.opacity += 4
     }
   }
 })

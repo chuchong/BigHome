@@ -17,7 +17,7 @@
     "_parent": null,
     "_children": [],
     "_active": true,
-    "_level": 2,
+    "_level": 1,
     "_components": [
       {
         "__id__": 2
@@ -454,9 +454,7 @@
     "_enabled": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "72f899db-2280-46c4-baed-3f91a4961789"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -468,7 +466,7 @@
     "_fillStart": 0,
     "_fillRange": 0,
     "_isTrimmedMode": true,
-    "_state": 105,
+    "_state": 0,
     "_atlas": null,
     "_id": ""
   },
@@ -483,12 +481,11 @@
     "director": null,
     "bullet_speed": 300,
     "bullet": null,
-    "x_up_limit": 400,
-    "x_down_limit": -400,
-    "y_up_limit": 250,
-    "y_down_limit": -250,
     "renew_frequency": 10,
     "life": 10,
+    "speed": 1000,
+    "dieAudio": null,
+    "hurtAudio": null,
     "_id": ""
   },
   {
@@ -521,7 +518,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "0b60eed7-29cc-49f9-bb79-7285137cce5d"
     },
     "fileId": "59Yr3WPflL0ZuMpc/InfQu",
     "sync": false
