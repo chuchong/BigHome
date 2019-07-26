@@ -92,7 +92,6 @@ cc.Class({
     if (this.points.length) {
       let topP = this.points[this.points.length - 1]
       let topPinVec2 = this.director.shooter.convertToNodeSpaceAR(new cc.Vec2(topP[0], topP[1]))
-      console.log(topPinVec2)
       if (cc.Intersection.pointInPolygon(
         topPinVec2, this.director.shooter.getComponent(cc.PolygonCollider).points)) {
         this.points.pop()

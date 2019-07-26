@@ -13,13 +13,11 @@ cc.Class({
     },
 
     start () {
-        console.log("start")
         this.initAction();
         this.initUserInfoButton();
     },
 
     initAction () {
-        console.log("initaction")
         this._isShow = false;
         let size = cc.winSize;
         this._showAction = cc.moveTo(0.5, this.wxSubContextView.x, 0);
@@ -31,9 +29,7 @@ cc.Class({
     },
 
     initUserInfoButton () {
-        console.log("inituser")
         if (typeof wx === 'undefined') {
-            console.log("wx undefined")
             return;
         }
 
@@ -56,7 +52,6 @@ cc.Class({
         });
 
         button.onTap((res) => {
-            console.log("registered")
             let userInfo = res.userInfo;
             if (!userInfo) {
                 return;
@@ -72,7 +67,6 @@ cc.Class({
 
     onClick () {
         this._isShow = !this._isShow;
-        console.log("clicked")
         if (this._isShow) {
             this.wxSubContextView.runAction(this._showAction);
         }

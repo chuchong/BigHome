@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3859375,
-      "y": 0.3859375,
+      "x": 0.406787109375,
+      "y": 0.406787109375,
       "z": 1
     },
     "_quat": {
@@ -515,11 +515,13 @@
     },
     "_enabled": true,
     "_fontFamily": "Arial",
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$fontSize": 40,
-    "_N$font": null,
+    "_N$font": {
+      "__uuid__": "78e6b405-71a2-4add-a33f-5a6b970a190b"
+    },
     "_N$maxWidth": 0,
     "_N$lineHeight": 500,
     "_N$imageAtlas": null,
@@ -535,12 +537,12 @@
     },
     "_enabled": true,
     "_fontFamily": "Arial",
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_N$string": "",
     "_N$horizontalAlign": 1,
     "_N$fontSize": 40,
     "_N$font": {
-      "__uuid__": "94dcd63d-3588-4fd6-9285-80afdd52d5c6"
+      "__uuid__": "78e6b405-71a2-4add-a33f-5a6b970a190b"
     },
     "_N$maxWidth": 600.1,
     "_N$lineHeight": 60,
@@ -622,8 +624,10 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "78e6b405-71a2-4add-a33f-5a6b970a190b"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 2,

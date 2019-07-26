@@ -75,7 +75,6 @@ cc.Class({
   },
 
   shoot (angle, distance) {
-    console.log('dynamic')
     let bullet = cc.instantiate(this.bullet)
     bullet.position = this.node.convertToWorldSpaceAR(new cc.Vec2(0, distance))
     bullet.rotation = this.rad2deg(-angle) - 45

@@ -70,7 +70,7 @@ cc.Class({
 
     setTimeout(this._wrap(this.showDescription, this), this.pre_load_time * 1000)
     setTimeout(this._wrap(this.showSpeaker, this), (this.pre_load_time + this.text.length * this.ch_speed) * 1000)
-    setTimeout(this._wrap(this.startGameScene, this), (this.pre_load_time + this.text.length * this.ch_speed + this.after_load_time) * 1000)
+    setTimeout(this._wrap(this.startGameScene, this), (this.pre_load_time + this.text.length * this.ch_speed + this.speaker_dure + this.after_load_time) * 1000)
 
     cc.director.preloadScene('BattleScene')
   },

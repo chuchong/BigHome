@@ -6,7 +6,7 @@ var stageTitle = [ '1: Lab 0',
 ]
 
 var stageHighestScore = [
-  1, 2, 3, 4
+  0, 0, 0, 0
 ]
 
 var currentStage = 4 // 从1开始

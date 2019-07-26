@@ -76,11 +76,14 @@ cc.Class({
   },
 
   _winAsk () { // Polym
+    console.log("here")
     if (!this.finish) {
       this.finish = true
       this.background.opacity = 100
       this.winAsk.active = true
-      if (this.gameLogic.hasScore()) { this.loseAsk.getComponent('ask').setScore(this.score) }
+      if (this.gameLogic.hasScore()) { 
+        this.loseAsk.getComponent('ask').setScore(this.score) 
+      }
       if (this.gameLogic.hasNextStage()) {
         this.winAsk.getComponent('ask').showNext()
         this.winAsk.on('NEXT', () => {
@@ -106,10 +109,34 @@ cc.Class({
       this.finish = true
       this.background.opacity = 100
       this.loseAsk.active = true
-      if (this.gameLogic.hasScore()) { this.loseAsk.getComponent('ask').setScore(this.score) }
-      // this.loseAsk.on('NEXT', () => {
-      //   cc.director.loadScene('BattleScene')
-      // })
+      if (this.gameLogic.hasScore()) { 
+        this.loseAsk.getComponent('ask').setScore(this.score) 
+        let high = StageInfo.highestScore[StageInfo.currentStage - 1]
+        if (this.score > high){
+          StageInfo.highestScore[StageInfo.currentStage - 1] = this.score
+          let score = this.score
+          if (typeof(wx) === 'undefined'){
+            console.log("wx undefined")
+          }
+          else{
+            console.log("score sent")
+            wx.getOpenDataContext().postMessage({
+              new_score : score
+            });
+            var arr = new Array();
+            arr.push({ key: "score", value:score.toString()})
+            wx.setUserCloudStorage({
+              KVDataList: arr,
+              success: function (res) {
+                console.log("-------存储成功-----：");
+              },
+              fail: function (res) {
+                console.error(res);
+              },
+            })
+          }
+        }
+      }
       this.loseAsk.on('RETRY', () => {
         cc.director.loadScene('BattleScene')
       })

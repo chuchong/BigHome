@@ -36,7 +36,6 @@ cc.Class({
   start () {
     var node = this.node
     var ctx = node.getComponent(cc.Graphics)
-    console.log(node.width)
     ctx.rect(-node.width / 2, -node.height / 2, node.width, node.height)
     ctx.stroke()
   }

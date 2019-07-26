@@ -57,6 +57,11 @@ cc.Class({
     }
     cc.director.getPhysicsManager().enabled = false
     this.setInfo()
+    if (typeof(wx) !== undefined){
+      wx.getOpenDataContext().postMessage({
+        renew: true
+      });
+    }
   },
 
   setInfo: function () {
