@@ -63,7 +63,7 @@ cc.Class({
       let shooterPos = this.director.shooter.getComponent('shooter').node
       let x = shooterPos.x
       let y = shooterPos.y
-      while (Math.abs(x - shooterPos.x) + Math.abs(y - shooterPos.y) < 100) {
+      while (Math.abs(x - shooterPos.x) + Math.abs(y - shooterPos.y) < 400) {
         x = util.randomRangeInt(this.director.x_down_limit, this.director.x_up_limit)
         y = util.randomRangeInt(this.director.y_down_limit, this.director.y_up_limit)
       }

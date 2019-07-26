@@ -31,12 +31,10 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
-    cc.director.getPhysicsManager().enabled = true
-  },
+  // onLoad () {},
 
   start () {
-
+    cc.game.addPersistRootNode(this.node)
   }
 
   // update (dt) {},

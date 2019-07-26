@@ -12,33 +12,21 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    // foo: {
-    //     // ATTRIBUTES:
-    //     default: null,        // The default value will be used only when the component attaching
-    //                           // to a node for the first time
-    //     type: cc.SpriteFrame, // optional, default is typeof default
-    //     serializable: true,   // optional, default is true
-    // },
-    // bar: {
-    //     get () {
-    //         return this._bar;
-    //     },
-    //     set (value) {
-    //         this._bar = value;
-    //     }
-    // },
+
   },
 
   // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {},
+  onLoad () {
+  },
 
   start () {
-    var node = this.node
-    var ctx = node.getComponent(cc.Graphics)
-    ctx.rect(-node.width / 2, -node.height / 2, node.width, node.height)
-    ctx.stroke()
-  }
+    this.ctx = this.getComponent(cc.Graphics)
+    this.ctx.rect(-this.node.width / 2, -this.node.height / 2, this.node.width, this.node.height)
+    this.ctx.stroke()
+  },
 
-  // update (dt) {},
+  update (dt) {
+
+  }
 })

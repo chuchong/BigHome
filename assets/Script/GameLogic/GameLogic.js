@@ -18,7 +18,7 @@ var GameLogic = cc.Class({
     }
   }),
 
-  start () {
+  ctor () {
 
   },
 

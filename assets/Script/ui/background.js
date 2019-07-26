@@ -9,18 +9,17 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-    },
+  properties: {
+  },
 
-    // LIFE-CYCLE CALLBACKS:
+  start () {
+    let size = cc.winSize
+    this.node.width = size.width
+    this.node.height = size.height
+    this.node.setPosition(size.width / 2, size.height / 2)
+  }
 
-    // onLoad () {},
-
-    start () {
-
-    },
-
-    // update (dt) {},
-});
+  // update (dt) {},
+})
