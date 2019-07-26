@@ -6,7 +6,7 @@
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "SelectStartButton": {
+    "point": {
       "ver": "1.0.4",
       "uuid": "b0d2c950-3219-4ddb-8737-3dfeba502bdf",
       "rawTextureUuid": "1ae1860e-36cb-451d-b245-c1abb38163e2",
